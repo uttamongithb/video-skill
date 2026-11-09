@@ -19,9 +19,9 @@ OUT.mkdir(parents=True, exist_ok=True)
 _SPEC = json.loads((ROOT / "assets" / "vo" / "sections.json").read_text())
 SCRIPT_SECTIONS = [(s["id"], s["label"], None, None) for s in _SPEC["sections"]]
 TARGET = _SPEC.get("script_target")          # None -> no tempo compression at all
-LEAD_IN = 0.35
-TAIL = 1.15
-GAP = 0.30
+LEAD_IN = 0.20
+TAIL = 0.70
+GAP = 0.24
 
 
 def run(cmd):

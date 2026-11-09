@@ -7,7 +7,7 @@ This reference guide establishes the motion design standards, scene transition c
 ## 1. Strict Target Duration & Audio Speed Scaling (The 60-Second Rule)
 
 ### The Problem
-Raw Text-to-Speech (TTS) engines speak at a relaxed conversational tempo (~110–120 words per minute). A 160-word script will naturally take **90–95 seconds** if uncalibrated, causing viewer drop-off. Modern technical reels and shorts require an energetic, punchy delivery of **160–180 words per minute** and must adhere strictly to the creator's target duration (e.g., exactly 60.0 seconds).
+Raw Text-to-Speech (TTS) engines speak at a relaxed conversational tempo (~110–120 words per minute). A 200-word script will naturally take **100–110 seconds** if uncalibrated, causing viewer drop-off. Modern technical reels and shorts require an energetic, punchy viral delivery of **200–215 words per minute** (`rate: +28%` to `+32%`) and must adhere strictly to the creator's target duration (e.g., exactly 60.0 seconds).
 
 ### The Solution: Pitch-Preserving Audio Tempo Scaling
 When script annotations contain target time ranges (e.g., `0–7 sec`, `7–16 sec`, `16–27 sec`, `27–42 sec`, `42–50 sec`, `50–60 sec`), the agent must calculate the required speed factor per scene:

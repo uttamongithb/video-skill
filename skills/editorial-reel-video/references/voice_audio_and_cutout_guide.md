@@ -10,16 +10,16 @@ This guide defines the exact production contract for **Voiceover Direction**, **
 > **Why Standard TTS Fails on Reels:**
 > Default TTS models speak at ~110–125 Words Per Minute (WPM) with flat, robotic pitch contours. On modern vertical platforms (Instagram Reels, TikTok, YouTube Shorts), viewers swipe away within **1.8 seconds** if the opening lacks vocal energy, urgency, and pitch variance.
 >
-> **The Viral Fix:**
-> Viral reels require high vocal velocity (**160–180 WPM**), conversational Hinglish/English inflection, punchy keyword emphasis, and strategic micro-pauses.
+> **The Viral Benchmark & Fix:**
+> Benchmarking top viral tech reels (e.g. Uttam Bhartiya's 58.8s explainer at `https://youtube.com/shorts/4Rywx6wWSAI`), retention requires an ultra-punchy velocity of **200–215 WPM**, 200 words per 60s, micro-breaks under 140ms, and mean pitch around 185–195 Hz with terminal lifts.
 
 ```mermaid
 flowchart TD
     SCRIPT["Voiceover Script with Expression Tags<br/>[curious], [dramatic], [excited]"] --> PARSE["Parse Emotion & Pitch Intent"]
-    PARSE --> SSML["Inject SSML Prosody & Micro-Breaks<br/>Rate: +15% to +20%, Pitch: +3Hz to +8Hz"]
+    PARSE --> SSML["Inject SSML Prosody & Micro-Breaks<br/>Rate: +28% to +35%, Pitch: +4Hz to +8Hz"]
     SSML --> TTS["Agent TTS Generation Engine<br/>Edge-TTS / ElevenLabs / Azure / OpenAI"]
     TTS --> WORDS["Extract Word Timestamps<br/>(For word-by-word karaoke highlights)"]
-    TTS --> AUDIO["Audio Post-Processing<br/>1. silenceremove (0s lead dead air)<br/>2. atempo (lock to exact scene cut)<br/>3. loudnorm (Level to -16 LUFS)"]
+    TTS --> AUDIO["Audio Post-Processing<br/>1. silenceremove (0s lead dead air)<br/>2. atempo (lock to exact scene cut)<br/>3. loudnorm (Level to -14.3 to -16 LUFS)"]
     AUDIO --> TIMELINE["Master Clock (timeline.json)<br/>Video cuts locked to VO"]
 ```
 
@@ -27,16 +27,16 @@ flowchart TD
 
 ## 2. Vocal Direction & SSML Translation Matrix
 
-When the agent processes a script with expression tags, it must map each tag to the following vocal parameters and SSML templates:
+When the agent processes a script with expression tags, it must map each tag to the following viral pacing parameters and SSML templates:
 
 | Expression Tag | Viral Vocal Cadence | Pitch & Dynamic Shift | Delivery Tone | SSML / TTS Parameter Injection | Presenter Pose Pairing |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`[curious]`** | Rapid opening (**170–180 WPM**), questioning terminal lift | Pitch `+8%` / `+6Hz`, intimate breath dynamic | Fascinating hook, conspiratorial, intriguing | `<prosody rate="+15%" pitch="+8%">...?</prosody>` | `p1_shrug.png` (raised palms, wide eyes) |
-| **`[explaining]`** | Measured, crisp (**155–165 WPM**), articulate consonants | Resonant mid-range, steady cadence, 60ms pauses | Clear, authoritative, pedagogical, confident | `<prosody rate="+8%" pitch="+2%">...</prosody>` | `p4_chin.png` (chin tap) or `p3_present.png` |
-| **`[dramatic]`** | Intentional drop (**140–150 WPM**), staccato syllables | Pitch `-5%` / drop to chest voice, breath pause | Intense, weighty revelation, high contrast | `<break time="180ms"/><prosody rate="-5%" pitch="-4%">...</prosody>` | `p8_point.png` or `p2_facepalm.png` |
-| **`[confident]`** | Forward-driving clip (**160–170 WPM**), decisive | Upward terminal inflection, resonant, smiling | Authoritative, convincing, reassuring | `<prosody rate="+10%" pitch="+3%">...</prosody>` | `p3_present.png` (chest out, ta-da) |
-| **`[excited]`** | High velocity (**175–185 WPM**), punchy noun stress | Higher pitch `+10%`, expansive dynamic range | Thrilled, electrifying, triumphant | `<prosody rate="+20%" pitch="+10%">...</prosody>` | `p6_thumbs.png` (big thumbs up, huge grin) |
-| **`[playful]` / `[laughing]`** | Casual banter (**160–170 WPM**), breath chuckle | Relaxed cadence, playful vocal fry, smile | Friendly, peer-to-peer, cheeky | `<prosody rate="+10%" pitch="+5%">...</prosody>` *(with breath pause)* | `p7_cta.png` (pointing at viewer, wink) |
+| **`[curious]`** | Rapid opening (**210–220 WPM**), questioning terminal lift | Pitch `+8%` / `+6Hz`, intimate breath dynamic | Fascinating hook, conspiratorial, intriguing | `<prosody rate="+32%" pitch="+8%">...?</prosody>` | `p1_shrug.png` (raised palms, wide eyes) |
+| **`[explaining]`** | Crisp, articulate (**195–205 WPM**), clear consonants | Resonant mid-range (~190Hz), steady cadence | Clear, authoritative, pedagogical, confident | `<prosody rate="+28%" pitch="+3%">...</prosody>` | `p4_chin.png` (chin tap) or `p3_present.png` |
+| **`[dramatic]`** | Staccato drop (**175–185 WPM**), contrast beat | Pitch `-5%` / drop to chest voice, breath pause | Intense, weighty revelation, high contrast | `<break time="120ms"/><prosody rate="+18%" pitch="-4%">...</prosody>` | `p8_point.png` or `p2_facepalm.png` |
+| **`[confident]`** | Forward-driving clip (**205–215 WPM**), decisive | Upward terminal inflection, resonant, smiling | Authoritative, convincing, reassuring | `<prosody rate="+30%" pitch="+4%">...</prosody>` | `p3_present.png` (chest out, ta-da) |
+| **`[excited]`** | High velocity burst (**215–230 WPM**), punchy noun stress | Higher pitch `+10%`, expansive dynamic range | Thrilled, electrifying, triumphant | `<prosody rate="+35%" pitch="+8%">...</prosody>` | `p6_thumbs.png` (big thumbs up, huge grin) |
+| **`[playful]` / `[laughing]`** | Casual banter (**200–210 WPM**), breath chuckle | Relaxed cadence, cheerful vocal fry, smile | Friendly, peer-to-peer, cheeky | `<prosody rate="+30%" pitch="+5%">...</prosody>` *(with breath pause)* | `p7_cta.png` (pointing at viewer, wink) |
 
 ---
 
@@ -49,12 +49,12 @@ When the agent processes a script with expression tags, it must map each tag to 
   ```python
   import edge_tts
 
-  # Rate +15% ensures punchy short-form viral pacing
+  # Rate +30% locks into 200–215 WPM viral explainer cadence
   communicate = edge_tts.Communicate(
       text=script_text,
       voice="hi-IN-MadhurNeural",
-      rate="+15%",
-      pitch="+4Hz"
+      rate="+30%",
+      pitch="+5Hz"
   )
   await communicate.save("assets/vo/vo1.mp3")
   ```
@@ -62,16 +62,25 @@ When the agent processes a script with expression tags, it must map each tag to 
 ### B. ElevenLabs TTS Engine
 - **Voice Archetypes**: Conversational tech explainer (e.g., *Adam*, *Antoni*, or *Josh*).
 - **Settings for High Retention**:
-  - `stability: 0.35` (lower stability creates more natural human pitch variance and emotion).
+  - `speed: 1.30` (scales baseline ~160 WPM delivery to ~208 WPM).
+  - `stability: 0.32` (lower stability creates more natural human pitch variance and emotion).
   - `similarity_boost: 0.85` (high clarity on technical jargon).
-  - `style: 0.45` (amplifies emotional expression tags).
+  - `style: 0.50` (amplifies emotional expression tags).
   - `use_speaker_boost: true`
 
 ### C. OpenAI Audio TTS Engine
 - **Voices**: `alloy` (balanced, clean) or `echo` (warm, articulate).
-- **Speed Multiplier**: Always set `speed=1.15` to avoid sluggish 1.0x delivery.
+- **Speed Multiplier**: Always set `speed=1.30` to match 200–215 WPM viral delivery.
 
 ---
+
+### D. Benchmark Reference: Viral Tech Reel Acoustic Analysis
+Analysis of reference video (`https://youtube.com/shorts/4Rywx6wWSAI`):
+- **Total Duration**: 58.82 seconds
+- **Word Count**: 200 words (~204 WPM overall)
+- **Inter-Sentence Pauses**: Mean 0.41s, Median 0.44s; in-sentence micro-pauses 100–140ms
+- **Loudness**: `-14.3 LUFS` integrated, `3.4 LU` loudness range
+- **Pitch Profile**: F0 mean 191 Hz, dynamic range 95 Hz to 300 Hz peak inflection
 
 ## 4. Word-Level Timestamps for Karaoke Captions
 

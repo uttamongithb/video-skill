@@ -47,12 +47,12 @@ Designed for AI agents with built-in TTS engines (Edge-TTS, ElevenLabs, Azure Ne
 
 | Expression Tag | Delivery Tone & Energy | Cadence & Pace | SSML / Parameter Injection | Presenter Pose Pairing |
 | :--- | :--- | :--- | :--- | :--- |
-| **`[curious]`** | Intriguing, questioning, hooked | Fast opening (**170–180 WPM**) | `<prosody rate="+15%" pitch="+8%">...?</prosody>` | `p1_shrug.png` (raised palms, wide eyes) |
-| **`[explaining]`** | Measured, crisp, authoritative | Clear (**155–165 WPM**) | `<prosody rate="+8%" pitch="+2%">...</prosody>` | `p4_chin.png` (chin tap) or `p3_present.png` |
-| **`[dramatic]`** | Intense, heavy storytelling weight | Slower (**140–150 WPM**) | `<break time="180ms"/><prosody rate="-5%" pitch="-4%">...</prosody>` | `p8_point.png` or `p2_facepalm.png` |
-| **`[confident]`** | Resonant, decisive, expert | Steady (**165 WPM**) | `<prosody rate="+10%" pitch="+3%">...</prosody>` | `p3_present.png` (chest out, ta-da) |
-| **`[excited]`** | Thrilled, breakthrough energy | Rapid (**180 WPM**) | `<prosody rate="+20%" pitch="+10%">...</prosody>` | `p6_thumbs.png` (big thumbs up, thrilled grin) |
-| **`[playful]` / `[laughing]`** | Friendly banter, cheeky | Conversational (**165 WPM**) | `<prosody rate="+10%" pitch="+5%">...</prosody>` | `p7_cta.png` (pointing at viewer, wink) |
+| **`[curious]`** | Intriguing, questioning, hooked | Fast opening (**210–220 WPM**, `rate: +32%`) | `<prosody rate="+32%" pitch="+8%">...?</prosody>` | `p1_shrug.png` (raised palms, wide eyes) |
+| **`[explaining]`** | Measured, crisp, authoritative | Clear (**195–205 WPM**, `rate: +28%`) | `<prosody rate="+28%" pitch="+3%">...</prosody>` | `p4_chin.png` (chin tap) or `p3_present.png` |
+| **`[dramatic]`** | Intense, heavy contrast beat | Staccato (**175–185 WPM**, `rate: +18%`) | `<break time="120ms"/><prosody rate="+18%" pitch="-4%">...</prosody>` | `p8_point.png` or `p2_facepalm.png` |
+| **`[confident]`** | Resonant, decisive, expert | Forward-driving (**205–215 WPM**, `rate: +30%`) | `<prosody rate="+30%" pitch="+4%">...</prosody>` | `p3_present.png` (chest out, ta-da) |
+| **`[excited]`** | Thrilled, breakthrough energy | High velocity burst (**215–230 WPM**, `rate: +35%`) | `<prosody rate="+35%" pitch="+8%">...</prosody>` | `p6_thumbs.png` (big thumbs up, thrilled grin) |
+| **`[playful]` / `[laughing]`** | Friendly banter, cheeky | Conversational (**200–210 WPM**, `rate: +30%`) | `<prosody rate="+30%" pitch="+5%">...</prosody>` | `p7_cta.png` (pointing at viewer, wink) |
 
 ---
 

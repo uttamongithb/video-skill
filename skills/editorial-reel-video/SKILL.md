@@ -14,20 +14,20 @@ This skill teaches agents how to produce viral, high-retention technical and edu
 
 ### A. Strict Pacing & Duration Adherence (The 60-Second Rule)
 - If a script designates scene timestamps (e.g. `0–7 sec`, `7–16 sec`, `16–27 sec`, `27–42 sec`, `42–50 sec`, `50–60 sec`), the agent **MUST enforce exact target durations**.
-- Default TTS speeds are often too slow (~110 WPM). The generator must scale audio playback speed using FFmpeg `atempo` (pitch-preserved) to reach viral reel velocity (**160–180 WPM**) and lock to the exact designated 60-second runtime.
+- Default TTS speeds are far too slow (~110–120 WPM). The generator must scale audio playback speed or generate with TTS rate multipliers to hit viral reel velocity (**200–215 WPM**, `rate: +28%` to `+32%`) and lock to the exact designated 60-second runtime.
 
 ### B. Agent TTS Execution & Vocal Expression Standards (Viral Retention Blueprint)
-Agents equipped with built-in TTS engines (e.g. Edge-TTS, ElevenLabs, Azure Speech, OpenAI) MUST NOT use default flat/monotonic settings. Default TTS (110–120 WPM) loses short-form viewers within the first 2 seconds. The agent must inject viral pacing parameters:
-- **Velocity & Cadence**: Enforce viral reel velocity (**160–180 WPM** or `rate: +15%` to `+20%`).
-- **Pitch & Inflection**: Inject expressive pitch excursions (`pitch: +4Hz` to `+8Hz`) on questions and hooks.
-- **Micro-Breaks**: Insert 100–180ms tactical pauses (`<break time="180ms"/>`) directly before punchline words (e.g., before *"teen envelopes!"*).
+Agents equipped with built-in TTS engines (e.g. Edge-TTS, ElevenLabs, Azure Speech, OpenAI) MUST NOT use default flat/monotonic settings. Default TTS loses short-form viewers within the first 1.8 seconds. Benchmarked against high-retention viral reels (e.g., Uttam Bhartiya tech explainers at ~204 WPM), the agent must inject viral pacing parameters:
+- **Velocity & Cadence**: Enforce viral reel velocity (**200–215 WPM** or `rate: +28%` to `+32%`, `speed: 1.30`).
+- **Pitch & Inflection**: Inject expressive pitch excursions (`pitch: +4Hz` to `+8Hz` or `+8%`) on questions and hooks, mean F0 ~185–195 Hz.
+- **Micro-Breaks**: Insert 100–140ms tactical pauses (`<break time="120ms"/>`) directly before punchline words (never > 200ms dead air).
 - **Expression Tag Mapping**:
-  - **`[curious]`**: Fast opening (170 WPM), questioning terminal lift (`pitch: +8%`), conspiratorial intrigue.
-  - **`[explaining]`**: Measured (155–165 WPM), crisp articulation, 60ms pauses before technical terms.
-  - **`[dramatic]`**: Slower pace (145 WPM), pitch drop to chest voice (`-5%`), punchy staccato emphasis.
-  - **`[confident]`**: Forward-driving clip (165 WPM), resonant chest tone, upward terminal lift.
-  - **`[excited]`**: High velocity (180 WPM), pitch lift (`+10%`), sharp rhythmic punch on nouns.
-  - **`[playful]` / `[laughing]`**: Conversational clip (165 WPM), audible chuckle / breath smile, cheeky tone.
+  - **`[curious]`**: Fast hook opening (210–220 WPM, `rate: +32%`), questioning terminal lift (`pitch: +8%` / `+6Hz`), conspiratorial intrigue.
+  - **`[explaining]`**: Crisp articulation (195–205 WPM, `rate: +28%`), resonant tone, 60ms pauses before technical terms.
+  - **`[dramatic]`**: Slower punchy pace (175–185 WPM, `rate: +18%`), pitch drop to chest voice (`-5%`), punchy staccato emphasis.
+  - **`[confident]`**: Forward-driving clip (205–215 WPM, `rate: +30%`), resonant chest tone, upward terminal lift.
+  - **`[excited]`**: High velocity (215–230 WPM, `rate: +35%`), pitch lift (`+10%`), sharp rhythmic punch on nouns.
+  - **`[playful]` / `[laughing]`**: Conversational banter (200–210 WPM, `rate: +30%`), audible smile, cheeky tone.
 - **Word-Level Captions**: Extract word timestamps from TTS to power dancing word-by-word highlights (`.word-active` yellow glow `#FFE600`) on the bottom chip.
 - **Master Audio Blueprint**:
   - Voiceover leveled to **`-16 LUFS`** with `loudnorm=I=-16:TP=-1.5:LRA=7`.

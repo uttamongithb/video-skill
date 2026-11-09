@@ -170,12 +170,28 @@ def load_component_html(visual_name, components_dir):
     return ""
 
 def generate_voiceover(text, output_path, lang="hi"):
-    """Generates audio voiceover via free gTTS."""
-    from gtts import gTTS
-    print(f"[*] Generating speech for: {text[:60]}...")
-    tts = gTTS(text=text, lang=lang, slow=False)
-    tts.save(output_path)
-    print(f"[+] Audio saved to {output_path}")
+    """Generates audio voiceover with viral reel velocity (~204-215 WPM) via edge-tts."""
+    import asyncio
+    print(f"[*] Generating viral-paced voiceover for: {text[:60]}...")
+    voice = "hi-IN-MadhurNeural" if lang in ["hi", "hinglish"] else "en-US-ChristopherNeural"
+    try:
+        import edge_tts
+        async def _speak():
+            comm = edge_tts.Communicate(
+                text=text,
+                voice=voice,
+                rate="+30%",
+                pitch="+5Hz"
+            )
+            await comm.save(output_path)
+        asyncio.run(_speak())
+        print(f"[+] Edge-TTS audio (+30% velocity, {voice}) saved to {output_path}")
+    except Exception as e:
+        print(f"[!] Falling back to gTTS due to: {e}")
+        from gtts import gTTS
+        tts = gTTS(text=text, lang=lang, slow=False)
+        tts.save(output_path)
+        print(f"[+] Audio saved to {output_path}")
 
 def get_audio_duration(audio_file):
     """Uses ffprobe to get audio duration in seconds."""
