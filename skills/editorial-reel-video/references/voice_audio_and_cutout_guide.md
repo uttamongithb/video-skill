@@ -176,29 +176,60 @@ The presenter creates the personal human connection in every scene. The presente
 | `p9_idea.png` | Finger pointing straight up, lightbulb realization, wide eyes | `[revelation]`, `[idea]` | Pro Tip / Secret Hack |
 
 ### Presenter Grid Placement Rules (Invariant)
+
+```
++-------------------------------------------------------------+  Y = 0.00
+| [ANCHOR 1: KICKER]                                          |  Y = 0.0667 (128px)
+| [ANCHOR 2: HERO]                                            |  Y = 0.1006 (193px)
+| [ANCHOR 3: PROOF CARD / DIAGRAM]                            |  Y = 0.3010 (578px)
+| [ANCHOR 4: CHIP]  (•) CAPTION LINE                          |  Y = 0.5875 (1128px)
+|                                                             |
+| [ANCHOR 5: PRESENTER CUTOUT]                                |  Y = 0.6340 (1217px)
+|                     +-----------------------+               |
+|                     | [CHARACTER SILHOUETTE]|               |
+|                     | Three-quarter facing  |               |
+|                     | Inward toward diagram |               |
+|                     | Hands visible & active|               |
+|                     +-----------------------+               |
+| FRAME BOTTOM EDGE (WAIST CROPPED HERE)                      |  Y = 1.00 (1920px)
++-------------------------------------------------------------+
+```
+
 1. **Vertical Anchor**: `presenterTop = 0.634` (63.4% of frame height, or `1217px` on a `1080x1920` frame).
-2. **Horizontal Anchor**: Right-aligned, `20.7%` from frame edge (`presenterX = 0.207`).
-3. **Bottom Crop Rule**: `presenterTop + h > 1.0`. The character's waist must be sliced off cleanly by the bottom edge of the frame.
-4. **Collision Rule**: The top of the presenter's head must never cross above `chipBottom` (`presenterTop >= chipBottom`).
-5. **Adaptive Halo Glow**: The cutout has a subtle 18px colored halo (`drop-shadow: 0 0 24px rgba(..., 0.35)`) dynamically matching the scene's field color.
-6. **Entrance Motion**: Soft pop-up from bottom (`fromY: 40px`, `fromScale: 0.94`, `duration: 0.34s`, `power3.out`).
+2. **Horizontal Anchor**: Right-aligned, `20.7%` from frame edge (`presenterX = 0.207`, `left: 224px`).
+3. **Facing Direction**: The character is angled in **three-quarter view facing left** (toward the center/proof card), actively gesturing toward the animated diagram. The presenter must never face away or look off-frame.
+4. **Bottom Crop Rule**: `presenterTop + h > 1.0`. The character's waist must be sliced off cleanly by the bottom edge of the frame.
+5. **Collision Rule**: The top of the presenter's head must never cross above `chipBottom` (`presenterTop >= chipBottom`).
+6. **Adaptive Halo Glow (`#sX-glow`)**: A 700px radial glow circle sits behind the cutout (`--glow: 700px`). Halo opacity dynamically scales:
+   - On light fields (`ground`, `secondary`, `quaternary`): `opacity: 0.20`.
+   - On dark fields (`ink`, `tertiary`): Automatically boosted to `opacity: 0.42` (`--glow-alpha: 0.42`) so dark silhouettes and dark hoodies never blend into the dark background.
+7. **Entrance Motion**: Soft pop-up from bottom (`fromY: 40px`, `fromScale: 0.94`, `duration: 0.34s`, `power3.out`).
+8. **Horizontal Flip Variation**: For organic motion rhythm, mirror the character horizontally (`transform: scaleX(-1)`) on approximately 1 scene out of 3.
 
 ---
 
-## 7. How to Generate & Matte Cutout Poses
+## 7. Cutout Visual Archetypes & Production Recipes
 
-To maintain a consistent character across all 9 poses without facial drift:
+The cutout can be produced via **AI Image Generation** (illustrated anime/webtoon or 3D) OR **Real-Human Creator Video/Chroma Key**:
 
-### Step 1: Base Character Prompt
-```text
-Painterly anime-style illustration, semi-realistic webtoon rendering. Waist-up portrait of a young Indian man, early 20s. Warm tan skin with soft blush, broad open friendly smile with visible white teeth, large dark-brown eyes with white catchlights, thick expressive eyebrows, oval face, small painted nose. Extremely voluminous messy black hair with blue-black highlight strands, tousled spikes, swept forelock, sideburns meeting the ear. Oversized dark slate-navy hoodie with kangaroo pocket, drop shoulders, hood bunched behind the neck, drawstrings with coral-red tips, painted fabric folds. Soft two-tone shading: warm key light upper left, cool rim light on hair and shoulder. Crisp clean outer silhouette. Solid pure white background, no text, no logo, three-quarter view, cropped at the waist, hands visible and expressive. POSE: presenting with open palm toward his left, other hand relaxed at his side, chin slightly up, confident.
-```
+### Archetype A: Painterly Anime/Webtoon Illustration (Default)
+Ideal for zero-camera automated pipelines:
+- **Base Character Prompt (waist-up, white background)**:
+  ```text
+  Painterly anime-style illustration, semi-realistic webtoon rendering. Waist-up portrait of a young Indian man, early 20s. Warm tan skin with soft blush, broad open friendly smile with visible white teeth, large dark-brown eyes with white catchlights, thick expressive eyebrows, oval face, small painted nose. Extremely voluminous messy black hair with blue-black highlight strands, tousled spikes, swept forelock, sideburns meeting the ear. Oversized dark slate-navy hoodie with kangaroo pocket, drop shoulders, hood bunched behind the neck, drawstrings with coral-red tips, painted fabric folds. Soft two-tone shading: warm key light upper left, cool rim light on hair and shoulder. Crisp clean outer silhouette. Solid pure white background, no text, no logo, three-quarter view, cropped at the waist, hands visible and expressive. POSE: presenting with open palm toward his left, other hand relaxed at his side, chin slightly up, confident.
+  ```
+- **Pose Edits (Identity-Locked via Image-to-Image)**:
+  Feed the base image as reference and swap ONLY the final sentence with the pose from the matrix.
 
-### Step 2: Pose Edits (Reference-Only)
-Feed the base image back as image reference and swap ONLY the final pose sentence:
-```text
-Same character, same painterly anime webtoon style, same oversized dark slate-navy hoodie with coral-red drawstring tips, same voluminous messy black hair, same warm two-tone lighting, same solid pure white background, same waist-up crop. Keep his face, hair and outfit identical to the reference. Change ONLY the pose and expression: [INSERT POSE DESCRIPTION FROM MATRIX]
-```
+### Archetype B: Real-Human Creator Video / Photo Cutout
+Ideal for personal brand reels:
+- **Recording Standard**: Record creator waist-up in 1080p+ with good rim lighting and clean contrast against a green screen or solid background.
+- **Background Removal**: Process with rembg or ffmpeg chromakey:
+  ```bash
+  # Background removal via open-source rembg
+  rembg i input_pose.jpg output_cutout.png
+  ```
+- **Post-Matte Standardization**: Run `scripts/cutout.py` to ensure height is normalized to `1200px` and fringe halos are eroded.
 
 ### Step 3: Matte & Clean via `scripts/cutout.py`
 Run the automated alpha-matting script:

@@ -37,17 +37,32 @@ Agents equipped with built-in TTS engines (e.g. Edge-TTS, ElevenLabs, Azure Spee
   - Consult [`references/voice_audio_and_cutout_guide.md`](references/voice_audio_and_cutout_guide.md) for full SSML snippets and engine-specific configs.
 
 ### C. Presenter Cutout Architecture (Anchor 5)
-Every scene features an expressive presenter character cutout anchored at the bottom right (`top: 63.4%`, `x: 20.7%` from right, waist cropped by frame edge, sitting below the chip). Poses are directly mapped to vocal expression tags:
-- `[curious]` ➔ `p1_shrug.png` (raised palms, wide eyes, excited grin)
-- `[frustrated]` ➔ `p2_facepalm.png` (palm to forehead, grimace)
-- `[confident]` ➔ `p3_present.png` (arms open wide, ta-da pose, proud smile)
-- `[explaining]` ➔ `p4_chin.png` (chin tap, sly half-smile, teaching pose)
-- `[analogy]` / `[recalling]` ➔ `p5_memory.png` (scratching head, small aha)
-- `[excited]` / `[numbers]` ➔ `p6_thumbs.png` (big thumbs up, huge thrilled grin)
-- `[playful]` / `[laughing]` / `[cta]` ➔ `p7_cta.png` (pointing at viewer, cheeky grin)
-- `[dramatic]` / `[look]` ➔ `p8_point.png` (direct finger point off-screen)
-- `[revelation]` ➔ `p9_idea.png` (lightbulb finger up, wide eyes)
-- Consult [`references/voice_audio_and_cutout_guide.md`](references/voice_audio_and_cutout_guide.md) for full image generation prompts and alpha-matting instructions.
+Every scene features an expressive presenter character cutout anchored at the bottom right. The cutout provides the personal human connection and viewer eye-guidance across the technical explainer:
+- **Visual Style & Framing**:
+  - **Styles Supported**: (1) Painterly Anime/Webtoon illustration, (2) 3D Stylized Avatar, or (3) Real-human creator video with alpha matting.
+  - **Anatomy & Crop**: Waist-up portrait, expressive hands visible, waist cleanly sliced off by the bottom frame edge (`presenterTop + h > 1.0`).
+  - **Facing Angle**: Three-quarter angle facing **inward toward the left** (directing attention directly to the diagram/proof card, never staring dead off-screen).
+- **Exact Coordinates & Invariants**:
+  - Vertical Anchor: `top: 63.4%` (`1217px` on `1080x1920` canvas).
+  - Horizontal Anchor: Right-aligned at `left: 224px` (`20.7%` from the frame edge).
+  - Chip Clearance: Headroom strictly below Anchor 4 (`presenterTop >= chipBottom`, never overlapping spoken captions).
+- **Adaptive Contrast Halo (`#sX-glow`)**:
+  - 700px radial halo sits directly behind the character.
+  - Opacity scales dynamically: `0.20` on light fields (`ground`, `secondary`, `quaternary`), boosted to `0.42` (`--glow-alpha: 0.42`) on dark fields (`ink`, `tertiary`) so dark hoodies/clothing never vanish into dark backgrounds.
+- **Motion Dynamics**:
+  - Entrances: Soft pop-up from bottom (`fromY: 40px`, `fromScale: 0.94`, `0.34s`, `power3.out`).
+  - Scene Handoffs: Pose switches synchronously on each scene wipe. Optional 1-in-3 horizontal flip (`scaleX: -1`) for natural organic staging.
+- **Vocal Expression to Pose Mapping Matrix**:
+  - `[curious]` ➔ `p1_shrug.png` (raised palms, wide eyes, excited grin) — *Scene 1 (Hook)*
+  - `[frustrated]` ➔ `p2_facepalm.png` (palm to forehead, grimace) — *Problem / Pain Point*
+  - `[confident]` ➔ `p3_present.png` (arms open wide, ta-da pose, proud smile) — *Solution / Reveal*
+  - `[explaining]` ➔ `p4_chin.png` (chin tap, sly half-smile, teaching pose) — *Technical Breakdown*
+  - `[analogy]` / `[recalling]` ➔ `p5_memory.png` (scratching head, small aha) — *Metaphor / Story*
+  - `[excited]` / `[numbers]` ➔ `p6_thumbs.png` (big thumbs up, huge thrilled grin) — *Metrics / Proof*
+  - `[playful]` / `[laughing]` / `[cta]` ➔ `p7_cta.png` (pointing at viewer, cheeky grin) — *Call to Action*
+  - `[dramatic]` / `[look]` ➔ `p8_point.png` (direct finger point off-screen) — *Key Revelation*
+  - `[revelation]` ➔ `p9_idea.png` (lightbulb finger up, wide eyes) — *Pro-Tip / Secret Hack*
+- Consult [`references/voice_audio_and_cutout_guide.md`](references/voice_audio_and_cutout_guide.md) for full image generation prompts, real-human video instructions, and `scripts/cutout.py` alpha-matting algorithms.
 
 ### D. Dynamic Scene Transitions (No Stiff Cuts)
 Every scene transition must use an active motion transition:
