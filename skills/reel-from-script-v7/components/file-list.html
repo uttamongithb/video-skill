@@ -1,0 +1,24 @@
+<style>
+  .rw { display: flex; align-items: center; gap: calc(var(--bar-gap) * 1.2);
+        padding: calc(var(--card-pad) * .28) 0; font-size: var(--size-body); line-height: 1.4;
+        border-bottom: 1px dashed color-mix(in srgb, var(--paper-ink) 18%, transparent); opacity: 0; }
+  .rw:last-child { border-bottom: 0; }
+  .rw .n { width: calc(var(--size-body) * 1.9); text-align: right; color: var(--paper-muted); flex: none; }
+  .co { font-weight: 700; }
+  .fn { margin-left: auto; color: var(--paper-muted); font-size: calc(var(--size-body) * .9); }
+  .bad { color: var(--accent); font-weight: 700; width: 1.2em; text-align: right; }
+</style>
+<div class="rw"><span class="n">01</span><span class="co">Google</span><span class="fn">resume_final.pdf</span><span class="bad">x</span></div>
+<div class="rw"><span class="n">02</span><span class="co">Amazon</span><span class="fn">resume_final.pdf</span><span class="bad">x</span></div>
+<div class="rw"><span class="n">03</span><span class="co">Zomato</span><span class="fn">resume_final.pdf</span><span class="bad">x</span></div>
+<div class="rw"><span class="n">04</span><span class="co">Infosys</span><span class="fn">resume_final.pdf</span><span class="bad">x</span></div>
+<div class="rw" style="border-top:3px solid var(--ink);margin-top:calc(var(--card-pad)*.25)">
+  <span class="n">&rarr;</span><span style="font-weight:700">ek hi file, har jagah</span></div>
+<script>
+window.__sceneTweens = window.__sceneTweens || [];
+window.__sceneTweens.push(function (tl) {
+  const cover = document.getElementById("root").dataset.cover === "1";
+  if (cover) gsap.set(".rw", { x: 0, opacity: 1 });   /* a cover is a poster: nothing is hidden */
+  else tl.fromTo(".rw", { x: -26, opacity: 0 }, { x: 0, opacity: 1, duration: .26, ease: "power2.out", stagger: .12 }, 1.05);
+});
+</script>

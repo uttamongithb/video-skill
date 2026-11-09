@@ -1,0 +1,34 @@
+<style>
+  .url { display: flex; align-items: center; gap: calc(var(--bar-gap)*1.1); padding: var(--card-pad) var(--card-pad);
+         border-bottom: 3px solid var(--ink); background: var(--paper-bar); }
+  .dot { width: calc(var(--bar-h)*.18); height: calc(var(--bar-h)*.18); border-radius: 50%; background: var(--paper-muted); }
+  .addr { flex: 1; background: #fff; border: 2px solid var(--ink); border-radius: 999px;
+          padding: calc(var(--size-body)*.22) calc(var(--size-body)*.7); font-size: calc(var(--size-body)*.9); }
+  .page { padding: var(--card-pad) calc(var(--card-pad)*1.05); }
+  .h1 { font-family: var(--font-slab); font-size: calc(var(--size-hero)*.34); line-height: 1.05;
+        letter-spacing: -.02em; opacity: 0; }
+  .sub { font-size: calc(var(--size-body)*.94); color: var(--paper-muted); margin-top: calc(var(--size-body)*.4); opacity: 0; }
+  .btn { display: inline-block; margin-top: calc(var(--size-body)*.85); background: var(--ink); color: var(--on-ink);
+         font-weight: 700; font-size: calc(var(--size-body)*.95); padding: calc(var(--size-body)*.5) calc(var(--size-body)*1.1);
+         border-radius: 999px; opacity: 0; }
+  .feat { display: flex; gap: calc(var(--bar-gap)*1.2); margin-top: calc(var(--size-body)*.9); opacity: 0; }
+  .chip { font-size: calc(var(--size-body)*.78); letter-spacing: .1em; text-transform: uppercase;
+          border: 2px solid color-mix(in srgb, var(--paper-ink) 30%, transparent); border-radius: 999px;
+          padding: calc(var(--size-body)*.2) calc(var(--size-body)*.6); }
+</style>
+<div class="url"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+  <span class="addr">rezi.ai</span></div>
+<div class="page">
+  <div class="h1">Tailor your resume<br />for every job</div>
+  <div class="sub">AI resume builder + ATS score checker</div>
+  <div class="btn">Upload resume &rarr;</div>
+</div>
+<script>
+window.__sceneTweens = window.__sceneTweens || [];
+window.__sceneTweens.push(function (tl) {
+    tl.fromTo(".h1", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: .3, ease: "power3.out" }, 1.05);
+    tl.fromTo(".sub", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: .26 }, 1.28);
+    tl.fromTo(".btn", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: .26, ease: "back.out(2)" }, 1.46);
+    tl.fromTo(".feat", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: .26 }, 1.62);
+});
+</script>

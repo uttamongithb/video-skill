@@ -1,0 +1,27 @@
+<style>
+  .jd { border-left: 6px solid var(--accent); padding-left: calc(var(--card-pad)*.8); opacity: 0; }
+  .role { font-family: var(--font-slab); font-size: calc(var(--size-hero)*.20); line-height: 1.1; }
+  .meta { font-size: calc(var(--size-body)*.82); letter-spacing: .12em; text-transform: uppercase;
+          color: var(--paper-muted); margin-top: calc(var(--size-body)*.3); }
+  .ln2 { display: flex; gap: calc(var(--bar-gap)*1.1); font-size: calc(var(--size-body)*.95);
+         line-height: 1.5; margin-top: calc(var(--size-body)*.45); opacity: 0; }
+  .ln2 .b { width: calc(var(--size-body)*.55); height: calc(var(--size-body)*.55); border-radius: 2px;
+            background: var(--paper-muted); margin-top: calc(var(--size-body)*.42); flex: none; }
+  .hl { background: var(--secondary); color: var(--ink); font-weight: 700;
+        padding: 0 calc(var(--size-body)*.22); border-radius: 4px; }
+</style>
+<div style="padding-top:calc(var(--card-pad)*.25)">
+  <div class="jd">
+    <div class="role">Senior Frontend Engineer</div>
+    <div class="meta">Razorpay &middot; Bangalore &middot; 2-4 yrs</div>
+  </div>
+  <div class="ln2"><span class="b"></span><span>Build dashboards with <span class="hl">React</span> and <span class="hl">TypeScript</span></span></div>
+  <div class="ln2"><span class="b"></span><span>Own <span class="hl">GraphQL</span> APIs and <span class="hl">CI/CD</span> pipelines</span></div>
+</div>
+<script>
+window.__sceneTweens = window.__sceneTweens || [];
+window.__sceneTweens.push(function (tl) {
+    tl.fromTo(".jd", { x: -20, opacity: 0 }, { x: 0, opacity: 1, duration: .3, ease: "power3.out" }, .55);
+    tl.fromTo(".ln2", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: .24, ease: "power2.out", stagger: .16 }, .95);
+});
+</script>

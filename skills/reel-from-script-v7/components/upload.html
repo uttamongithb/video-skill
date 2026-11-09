@@ -1,0 +1,27 @@
+<style>
+  .drop { border: 4px dashed color-mix(in srgb, var(--paper-ink) 32%, transparent);
+          border-radius: calc(var(--card-radius)*.9); padding: calc(var(--card-pad)*.8);
+          text-align: center; opacity: 0; }
+  .fi { font-family: var(--font-mono); font-weight: 700; font-size: calc(var(--size-body)*1.05); }
+  .fs { font-size: calc(var(--size-body)*.8); color: var(--paper-muted); margin-top: calc(var(--size-body)*.25); }
+  .track { height: calc(var(--size-body)*.55); background: color-mix(in srgb, var(--paper-ink) 12%, transparent);
+           border-radius: 999px; overflow: hidden; margin-top: calc(var(--card-pad)*.5); }
+  .fill { height: 100%; width: 0%; background: var(--accent); border-radius: 999px; }
+  .res { display: flex; justify-content: space-between; font-size: calc(var(--size-body)*.82);
+         letter-spacing: .1em; text-transform: uppercase; color: var(--paper-muted);
+         margin-top: calc(var(--size-body)*.45); opacity: 0; }
+</style>
+<div class="drop">
+  <div class="fi">resume.pdf</div>
+  <div class="fs">1.2 MB &middot; parsed in 0.8s</div>
+  <div class="track"><div class="fill" id="fill"></div></div>
+  <div class="res"><span>24 keywords found</span><span style="color:var(--accent);font-weight:700">ready</span></div>
+</div>
+<script>
+window.__sceneTweens = window.__sceneTweens || [];
+window.__sceneTweens.push(function (tl) {
+    tl.fromTo(".drop", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: .28, ease: "power3.out" }, .55);
+    tl.fromTo("#fill", { width: "0%" }, { width: "100%", duration: 1.15, ease: "power2.inOut" }, .85);
+    tl.fromTo(".res", { opacity: 0 }, { opacity: 1, duration: .25 }, 1.85);
+});
+</script>

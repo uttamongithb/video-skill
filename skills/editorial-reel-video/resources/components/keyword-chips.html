@@ -1,0 +1,21 @@
+<style>
+  .kw { display: inline-block; padding: calc(var(--size-body)*.34) calc(var(--size-body)*.7);
+        margin: 0 calc(var(--size-body)*.30) calc(var(--size-body)*.46) 0; border-radius: 999px;
+        font-size: calc(var(--size-body) * .96); font-weight: 700; letter-spacing: .02em;
+        border: 2px solid var(--ink); opacity: 0; }
+  .ok { background: var(--secondary); color: var(--ink); }
+  .miss { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+  .cap { font-size: calc(var(--size-body) * .82); letter-spacing: .14em; text-transform: uppercase;
+         color: var(--paper-muted); margin-top: calc(var(--card-pad) * .35); opacity: 0; }
+</style>
+<div style="padding-top:calc(var(--card-pad)*.3)">
+  <span class="kw ok">React</span><span class="kw ok">TypeScript</span><span class="kw ok">Node.js</span>
+  <span class="kw miss">GraphQL</span><span class="kw miss">AWS</span></div>
+<div class="cap">ye keywords resume mein nahi mile</div>
+<script>
+window.__sceneTweens = window.__sceneTweens || [];
+window.__sceneTweens.push(function (tl) {
+    tl.fromTo(".kw", { y: 18, scale: .86, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: .22, ease: "back.out(2)", stagger: .07 }, 1.10);
+    tl.fromTo(".cap", { opacity: 0 }, { opacity: 1, duration: .3 }, 1.85);
+});
+</script>

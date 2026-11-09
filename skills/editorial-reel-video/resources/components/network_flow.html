@@ -1,0 +1,189 @@
+<!-- Reusable Animated Network & Pipeline Flow Component -->
+<div class="network-flow-container" style="position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+  <style>
+    .network-stage {
+      position: relative;
+      width: 720px;
+      height: 380px;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      padding: 24px;
+      overflow: hidden;
+    }
+    .node-card {
+      position: absolute;
+      width: 100px;
+      background: #1e293b;
+      border: 1.5px solid #334155;
+      border-radius: 12px;
+      padding: 10px 6px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      z-index: 10;
+      transition: all 0.3s ease;
+    }
+    .node-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 6px;
+      color: #f8fafc;
+    }
+    .node-sub {
+      font-size: 9px;
+      font-weight: 600;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+    .node-badge {
+      font-size: 8px;
+      font-weight: 800;
+      padding: 2px 4px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-top: 4px;
+    }
+
+    /* Node positioning */
+    .node-user   { left: 24px;  top: 130px; border-color: #38bdf8; }
+    .node-isp    { left: 140px; top: 130px; border-color: #f97316; }
+    .node-entry  { left: 260px; top: 70px;  border-color: #22c55e; }
+    .node-middle { left: 380px; top: 190px; border-color: #eab308; }
+    .node-exit   { left: 500px; top: 70px;  border-color: #ef4444; }
+    .node-target { left: 600px; top: 130px; border-color: #a855f7; }
+
+    /* Animated connecting line */
+    .flow-line {
+      stroke: #475569;
+      stroke-width: 3;
+      stroke-dasharray: 6 6;
+      animation: dashMove 1.5s linear infinite;
+    }
+    @keyframes dashMove {
+      to { stroke-dashoffset: -24; }
+    }
+
+    /* Moving Packet / Onion */
+    .packet-onion {
+      offset-path: path("M 80,165 L 140,165 L 260,105 L 380,225 L 500,105 L 600,165");
+      animation: packetTravel 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+    @keyframes packetTravel {
+      0% { offset-distance: 0%; opacity: 0; }
+      5% { opacity: 1; }
+      92% { opacity: 1; }
+      100% { offset-distance: 100%; opacity: 0; }
+    }
+
+    /* Status Pill Tag */
+    .privacy-tag {
+      position: absolute;
+      bottom: 16px;
+      left: 24px;
+      right: 24px;
+      background: rgba(30, 41, 59, 0.9);
+      border: 1px solid #475569;
+      border-radius: 8px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 700;
+      color: #e2e8f0;
+      z-index: 20;
+    }
+  </style>
+
+  <div class="network-stage">
+    <!-- Header title inside visual -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+      <div style="font-size: 12px; font-weight: 800; letter-spacing: 0.1em; color: #94a3b8; text-transform: uppercase;">
+        TOR ONION ROUTING PROTOCOL
+      </div>
+      <div style="font-size: 10px; font-weight: 700; background: #065f46; color: #34d399; padding: 2px 8px; border-radius: 4px;">
+        3-LAYER ENCRYPTION ACTIVE
+      </div>
+    </div>
+
+    <!-- Connection Paths SVG -->
+    <svg style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2;">
+      <!-- Background track -->
+      <path d="M 80,165 L 140,165 L 260,105 L 380,225 L 500,105 L 600,165" fill="none" class="flow-line"/>
+
+      <!-- Traveling Data Packet (The 3 Concentric Onion Rings) -->
+      <g class="packet-onion">
+        <!-- Outer Green Ring (Layer 1: Entry Key) -->
+        <circle cx="0" cy="0" r="14" fill="none" stroke="#22c55e" stroke-width="2.5" opacity="0.9"/>
+        <!-- Middle Yellow Ring (Layer 2: Middle Key) -->
+        <circle cx="0" cy="0" r="9.5" fill="none" stroke="#eab308" stroke-width="2.5" opacity="0.9"/>
+        <!-- Inner Red Ring (Layer 3: Exit Key) -->
+        <circle cx="0" cy="0" r="5" fill="#ef4444" opacity="0.9"/>
+        <!-- Pulse glow -->
+        <circle cx="0" cy="0" r="16" fill="rgba(56, 189, 248, 0.25)" class="pulse"/>
+      </g>
+    </svg>
+
+    <!-- Node 1: User -->
+    <div class="node-card node-user">
+      <div style="font-size: 22px;">💻</div>
+      <div class="node-title">USER</div>
+      <div class="node-sub">BROWSER</div>
+      <div class="node-badge" style="background: rgba(56,189,248,0.2); color: #38bdf8;">ORIGIN</div>
+    </div>
+
+    <!-- Node 2: ISP -->
+    <div class="node-card node-isp">
+      <div style="font-size: 22px;">📡</div>
+      <div class="node-title">YOUR ISP</div>
+      <div class="node-sub">LOCAL NET</div>
+      <div class="node-badge" style="background: rgba(249,115,22,0.2); color: #f97316;">BLIND</div>
+    </div>
+
+    <!-- Node 3: Entry Relay -->
+    <div class="node-card node-entry">
+      <div style="font-size: 22px;">🛡️</div>
+      <div class="node-title">GUARD</div>
+      <div class="node-sub">ENTRY RELAY</div>
+      <div class="node-badge" style="background: rgba(34,197,94,0.2); color: #22c55e;">PEEL L1</div>
+    </div>
+
+    <!-- Node 4: Middle Relay -->
+    <div class="node-card node-middle">
+      <div style="font-size: 22px;">🔀</div>
+      <div class="node-title">MIDDLE</div>
+      <div class="node-sub">RELAY NODE</div>
+      <div class="node-badge" style="background: rgba(234,179,8,0.2); color: #eab308;">PEEL L2</div>
+    </div>
+
+    <!-- Node 5: Exit Relay -->
+    <div class="node-card node-exit">
+      <div style="font-size: 22px;">🚪</div>
+      <div class="node-title">EXIT</div>
+      <div class="node-sub">FINAL RELAY</div>
+      <div class="node-badge" style="background: rgba(239,68,68,0.2); color: #ef4444;">PEEL L3</div>
+    </div>
+
+    <!-- Node 6: Website -->
+    <div class="node-card node-target">
+      <div style="font-size: 22px;">🌐</div>
+      <div class="node-title">TARGET</div>
+      <div class="node-sub">WEBSITE</div>
+      <div class="node-badge" style="background: rgba(168,85,247,0.2); color: #a855f7;">DEST</div>
+    </div>
+
+    <!-- Privacy Info Strip -->
+    <div class="privacy-tag">
+      <span style="color: #38bdf8;">✓ ISP only sees encrypted packets</span>
+      <span style="color: #22c55e;">✓ Guard only knows your IP</span>
+      <span style="color: #ef4444;">✓ Exit only sees destination</span>
+      <span style="color: #a855f7;">✓ Website sees Exit IP only</span>
+    </div>
+  </div>
+</div>

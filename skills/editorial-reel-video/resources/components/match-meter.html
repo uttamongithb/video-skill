@@ -1,0 +1,27 @@
+<style>
+  .head { display: flex; justify-content: space-between; align-items: center;
+          font-size: calc(var(--size-body)*.8); letter-spacing: .12em; text-transform: uppercase; color: var(--paper-muted); }
+  .pct { font-family: var(--font-display); font-size: calc(var(--size-hero)*.34); color: var(--accent); letter-spacing: 0; }
+  .bar { height: calc(var(--size-body)*.5); background: color-mix(in srgb, var(--paper-ink) 12%, transparent);
+         border-radius: 999px; overflow: hidden; margin: calc(var(--size-body)*.35) 0 calc(var(--card-pad)*.3); }
+  .bar i { display: block; height: 100%; width: 0%; background: var(--accent); }
+  .r { display: flex; align-items: baseline; gap: calc(var(--bar-gap)*1.1); font-size: calc(var(--size-body)*.94);
+       line-height: 1.5; padding: calc(var(--card-pad)*.3) 0; opacity: 0;
+       border-bottom: 1px dashed color-mix(in srgb, var(--paper-ink) 16%, transparent); }
+  .r:last-child { border-bottom: 0; }
+  .tag { font-size: calc(var(--size-body)*.66); letter-spacing: .14em; text-transform: uppercase;
+         flex: none; width: calc(var(--size-body)*3.2); color: var(--paper-muted); }
+  .add { background: var(--secondary); color: var(--ink); font-weight: 700;
+         padding: 0 calc(var(--size-body)*.25); border-radius: 4px; }
+</style>
+<div class="head"><span>job match</span><span class="pct">94%</span></div>
+<div class="bar"><i id="bar"></i></div>
+<div class="r"><span class="tag">resume</span><span>Built dashboards with React</span></div>
+<div class="r"><span class="tag">after</span><span>Built dashboards with React + <span class="add">TypeScript</span>, shipped via <span class="add">CI/CD</span> to <span class="add">AWS</span></span></div>
+<script>
+window.__sceneTweens = window.__sceneTweens || [];
+window.__sceneTweens.push(function (tl) {
+    tl.fromTo("#bar", { width: "0%" }, { width: "94%", duration: 1.05, ease: "power2.inOut" }, .60);
+    tl.fromTo(".r", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: .24, ease: "power2.out", stagger: .22 }, .95);
+});
+</script>

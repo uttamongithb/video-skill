@@ -1,0 +1,31 @@
+PRESENTER — generation prompts (use exactly, change only what is marked)
+
+STEP 1 — generate ONE base pose. This image defines the identity for the whole series.
+
+---
+Painterly anime-style illustration, semi-realistic webtoon rendering. Waist-up portrait of a young Indian man, early 20s. Warm tan skin with soft blush, broad open friendly smile with visible white teeth, large dark-brown eyes with white catchlights, thick expressive eyebrows, oval face, small painted nose. Extremely voluminous messy black hair with blue-black highlight strands, tousled spikes, swept forelock, sideburns meeting the ear. Oversized dark slate-navy hoodie with kangaroo pocket, drop shoulders, hood bunched behind the neck, drawstrings with coral-red tips, painted fabric folds. Soft two-tone shading: warm key light upper left, cool rim light on hair and shoulder. Crisp clean outer silhouette. Solid pure white background, no text, no logo, three-quarter view, cropped at the waist, hands visible and expressive. POSE: presenting with open palm toward his left, other hand relaxed at his side, chin slightly up, confident.
+---
+
+STEP 2 — generate the other 7 poses as EDITS of that base.
+Pass the base image as the reference. Keep the whole block above and swap ONLY the final sentence.
+Do NOT re-generate from text alone: the face drifts and the reel stops looking like one person.
+
+---
+Same character, same painterly anime webtoon style, same oversized dark slate-navy hoodie with coral-red
+drawstring tips, same voluminous messy black hair, same warm two-tone lighting, same solid pure white background,
+same waist-up crop. Keep his face, hair and outfit identical to the reference. Change ONLY the pose and expression:
+{pose}
+---
+
+POSES (one per scene, mirror him for 1 shot in 3):
+1. both palms open and raised in an exaggerated shrug, shoulders hunched up, eyebrows high, surprised excited grin   -> HOOK
+2. one palm flat against his forehead in a frustrated facepalm, eyes squeezed shut, grimace                        -> PROBLEM
+3. both arms open wide in a proud "ta-da", palms up toward the viewer, chest out, big confident smile               -> INTRO / reveal
+4. index finger tapping his chin, head tilted, one eyebrow raised, sly half-smile, eyes up and to the side          -> EXPLAIN
+5. one hand scratching the back of his head, eyes rolled up recalling, mouth in a small "aha"                      -> MEMORY
+6. a big thumbs up beside his face, other hand pointing off to the side, huge thrilled grin                          -> PROOF / number
+7. pointing a finger at the viewer, playful cheeky grin, other hand thumbs up                                        -> CTA
+8. both hands on his cheeks, amazed, mouth open                                                                     -> REVEAL (extra)
+
+AFTER GENERATING — matte with TOOLS/cutout.py and check on crimson, cream and ink before you build anything.
+Reject the pose (regenerate) if: hair highlights are eaten, the hoodie turns semi-transparent, or a white halo survives.

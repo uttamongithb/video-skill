@@ -1,0 +1,38 @@
+<style>
+  .th { display: flex; align-items: center; gap: calc(var(--bar-gap)*1.2); }
+  .av { width: calc(var(--size-body)*1.9); height: calc(var(--size-body)*1.9); border-radius: 50%;
+        background: var(--ink); color: var(--on-ink); display: flex; align-items: center; justify-content: center;
+        font-weight: 700; font-size: calc(var(--size-body)*.9); flex: none; }
+  .av.me { background: var(--secondary); color: var(--ink); }
+  .msg { font-size: calc(var(--size-body)*1.02); line-height: 1.45; }
+  .bub { display: flex; gap: calc(var(--bar-gap)*1.2); padding: calc(var(--card-pad)*.55) 0;
+         border-bottom: 1px dashed color-mix(in srgb, var(--paper-ink) 16%, transparent); opacity: 0; }
+  .bub:last-of-type { border-bottom: 0; }
+  .who { font-size: calc(var(--size-body)*.76); letter-spacing: .1em; text-transform: uppercase;
+         color: var(--paper-muted); margin-bottom: calc(var(--size-body)*.18); }
+  .q { font-family: var(--font-slab); font-size: calc(var(--size-hero)*.30); line-height: 1; letter-spacing: -.01em; }
+  .ok { color: var(--accent); font-weight: 700; }
+  .pill { display: inline-flex; align-items: center; gap: calc(var(--size-body)*.5);
+          margin-top: calc(var(--card-pad)*.5); background: var(--ink); color: var(--on-ink);
+          border-radius: 999px; padding: calc(var(--size-body)*.42) calc(var(--size-body)*1.0);
+          font-size: calc(var(--size-body)*.95); font-weight: 700; opacity: 0; }
+</style>
+<div style="padding-top:calc(var(--card-pad)*.2)">
+  <div class="bub">
+    <span class="av me">you</span>
+    <div><div class="who">comment</div><div class="q">resume</div></div>
+  </div>
+  <div class="bub">
+    <span class="av">ub</span>
+    <div><div class="who">dm &rarr; @uttambhartiyaa</div>
+      <div class="msg">bhej diya <span class="ok">&#10003;</span> resume tailoring prompt + link</div></div>
+  </div>
+  <div class="pill">uttambhartiya.in</div>
+</div>
+<script>
+window.__sceneTweens = window.__sceneTweens || [];
+window.__sceneTweens.push(function (tl) {
+  tl.fromTo(".bub", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: .28, ease: "power3.out", stagger: 1.85 }, .55);
+  tl.fromTo(".pill", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: .26, ease: "back.out(2)" }, 4.30);
+});
+</script>
